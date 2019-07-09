@@ -7,5 +7,5 @@ Feature: Book cheaspter hotel
     Given that I am on DX HOTELS website
     When I verify the fees of the client with reservation
       | location      | checkIn  | checkOut |
-      | San Francisco | 7/8/2019 | 8/8/2019 |
+      | San Francisco | 7/8/2019 | 7/9/2019 |
     And I choose cheapste hotel

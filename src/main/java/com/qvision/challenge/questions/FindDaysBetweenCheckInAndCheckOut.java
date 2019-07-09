@@ -19,7 +19,7 @@ public class FindDaysBetweenCheckInAndCheckOut implements Question<Long> {
 
     @Override
     public Long answeredBy(Actor actor) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyy");
         LocalDate checkIn = LocalDate.parse(bookingHotel.getCheckIn(), formatter);
         LocalDate checkOut = LocalDate.parse(bookingHotel.getCheckOut(), formatter);
         return DAYS.toChronoUnit().between(checkIn, checkOut);

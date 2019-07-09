@@ -7,8 +7,11 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.actions.Scroll;
+import net.serenitybdd.screenplay.targets.Target;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.qvision.challenge.questions.DxHotelQuestions.*;
@@ -26,8 +29,22 @@ public class ChooseCheapestHotel implements Task {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
+        List<Integer> preciosBajos = new ArrayList<>();
+        Target flecha = Target.the("flecha").locatedBy("//div[@class='switch switch-right']");
         List<WebElementFacade> pricesElement = BrowseTheWeb.as(actor).findAll(By.xpath(ResultsHotels.PRICES_OF_HOTELS));
         Integer hotel = actor.asksFor(findCheapestHotel(pricesElement));
+        actor.attemptsTo(Scroll.to(flecha));
+        while (flecha.resolveFor(actor).isPresent()) {
+            flecha.resolveFor(actor).click();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            preciosBajos.add(actor.asksFor(findCheapestHotel(pricesElement)));
+        }
+        System.out.println("*********PRECIOS BAJOS DE CADA PAGINA********");
+        preciosBajos.forEach(System.out::println);
         actor.attemptsTo(Click.on(CHEAPEST_HOTEL.of(String.valueOf(hotel))));
         long days = actor.asksFor(findDaysBetweenCheckInAndCheckOut(bookingHotel));
         days += 1;
