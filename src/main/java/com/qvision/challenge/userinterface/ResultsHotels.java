@@ -9,7 +9,8 @@ public class ResultsHotels {
     private ResultsHotels() {
     }
 
-    public static final String PRICES_OF_HOTELS = "//p[@class='rate-number']";
+    //    public static final String PRICES_OF_HOTELS = "//p[@class='rate-number']";
+    public static final String PRICES_OF_HOTELS = "//p[@data-bind='text: nightlyRate']";
     public static final Target CHEAPEST_HOTEL = Target.the("cheapest hotel").locatedBy("(//div[@class='book-it gray-button dx-button dx-button-normal dx-button-mode-contained dx-widget dx-button-has-text'])['{0}']");
 
 }
