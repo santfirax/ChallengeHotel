@@ -7,7 +7,8 @@ import net.serenitybdd.screenplay.Question;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static java.util.concurrent.TimeUnit.DAYS;
+import static java.time.temporal.ChronoUnit.DAYS;
+
 
 public class FindDaysBetweenCheckInAndCheckOut implements Question<Long> {
     private final BookingHotel bookingHotel;
@@ -22,6 +23,6 @@ public class FindDaysBetweenCheckInAndCheckOut implements Question<Long> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyy");
         LocalDate checkIn = LocalDate.parse(bookingHotel.getCheckIn(), formatter);
         LocalDate checkOut = LocalDate.parse(bookingHotel.getCheckOut(), formatter);
-        return DAYS.toChronoUnit().between(checkIn, checkOut);
+        return DAYS.between(checkIn, checkOut);
     }
 }
