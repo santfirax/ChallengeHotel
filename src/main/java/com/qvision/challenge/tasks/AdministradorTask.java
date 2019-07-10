@@ -16,8 +16,8 @@ public class AdministradorTask {
                 Click.on(SEARCH_BUTTON));
     }
 
-    public static Task findCheapeasteHotel(BookingHotel bookingHotel) {
-        return new FindCheapestHotel(bookingHotel);
+    public static Task findCheapeasteHotel() {
+        return new FindCheapestHotel();
     }
 
     public static Task chooseCheapestHotel() {

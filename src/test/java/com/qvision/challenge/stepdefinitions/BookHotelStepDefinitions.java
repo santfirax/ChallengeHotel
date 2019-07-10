@@ -28,7 +28,7 @@ public class BookHotelStepDefinitions {
     @When("^I verify the fees of the client with reservation$")
     public void iVerifyTheFeesOfTheClientWithReservation(List<BookingHotel> reservations) {
         theActorInTheSpotlight().attemptsTo(AdministradorTask.bookNewHotel(reservations.get(0)),
-                findCheapeasteHotel(reservations.get(0)));
+                findCheapeasteHotel());
     }
 
 

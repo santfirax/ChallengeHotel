@@ -4,6 +4,7 @@ import com.qvision.challenge.userinterface.ResultsHotels;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.actions.Scroll;
 import net.serenitybdd.screenplay.targets.Target;
 
 public class ChooseCheapestHotel implements Task {
@@ -14,6 +15,7 @@ public class ChooseCheapestHotel implements Task {
         while ((!hotel.of(String.valueOf(cheapestHotel)).resolveFor(actor).isPresent())) {
             actor.attemptsTo(Click.on(ResultsHotels.LEFT_BUTTON));
         }
+        actor.attemptsTo(Scroll.to(hotel.of(String.valueOf(cheapestHotel))));
         actor.attemptsTo(Click.on(hotel.of(String.valueOf(cheapestHotel))));
     }
 }

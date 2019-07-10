@@ -1,4 +1,4 @@
-package com.qvision.challenge.interactions;
+package com.qvision.challenge.questions;
 
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;

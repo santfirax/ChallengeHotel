@@ -1,6 +1,5 @@
 package com.qvision.challenge.questions;
 
-import com.qvision.challenge.interactions.FindPriceOfHotels;
 import com.qvision.challenge.models.BookingHotel;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.Question;
