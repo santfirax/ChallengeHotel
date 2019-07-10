@@ -7,6 +7,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.targets.Target;
+import net.serenitybdd.screenplay.waits.WaitUntil;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.qvision.challenge.questions.DxHotelQuestions.findCheapestHotel;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isPresent;
 
 public class FindCheapestHotel implements Task {
     private final BookingHotel bookingHotel;
@@ -29,6 +31,7 @@ public class FindCheapestHotel implements Task {
         Target preciosOtros = Target.the("precios").locatedBy("//p[@class='rate-number']");
         while (flecha.resolveFor(actor).isPresent()) {
             List<Integer> preciosBajos = new ArrayList<>();
+            actor.attemptsTo(WaitUntil.the(preciosOtros, isPresent()));
             preciosOtros.resolveAllFor(actor).forEach(precio -> System.out.println(precio.getText()));
             preciosOtros.resolveAllFor(actor).forEach(precio -> preciosBajos.add(Integer.valueOf(precio.getText().replace("$", ""))));
             precioMasBajoDeCadaPagina.add(Collections.min(preciosBajos));
