@@ -6,22 +6,18 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import net.serenitybdd.screenplay.targets.Target;
-import net.serenitybdd.screenplay.waits.WaitUntil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static com.qvision.challenge.questions.DxHotelQuestions.findCheapestHotel;
-import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isPresent;
-import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
+import static com.qvision.challenge.questions.DxHotelQuestions.thePricesOfHotels;
 
 public class FindCheapestHotel implements Task {
     private final BookingHotel bookingHotel;
+    private final int SHORT_TIME_TO_GET_TEXT = 500;
 
     protected FindCheapestHotel(BookingHotel bookingHotel) {
         this.bookingHotel = bookingHotel;
@@ -29,40 +25,22 @@ public class FindCheapestHotel implements Task {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-        List<Integer> precioMasBajoDeCadaPagina = new ArrayList<>();
-        Target flecha = Target.the("flecha").locatedBy("//div[@class='switch switch-right']");
-        Target preciosOtros = Target.the("precios").locatedBy("//p[@class='rate-number']");
-        while (flecha.resolveFor(actor).isPresent()) {
-            List<Integer> preciosBajos = new ArrayList<>();
-            actor.attemptsTo(WaitUntil.the(preciosOtros, isPresent()));
-            actor.attemptsTo(WaitUntil.the(preciosOtros, isVisible()));
-            Consumer<WebElementFacade> getPriceFromHotel = price -> {
-                price.waitForCondition().until(ExpectedConditions.visibilityOf(price));
-                System.out.println(price.getText());
-                preciosBajos.add(Integer.valueOf(price.getText().replace("$", "")));
-            };
-            preciosOtros.resolveAllFor(actor).forEach(getPriceFromHotel);
-            precioMasBajoDeCadaPagina.add(Collections.min(preciosBajos));
-            preciosBajos.clear();
-            flecha.resolveFor(actor).click();
-
-        }
+        List<Integer> cheapestPriceFromEachPage = new ArrayList<>();
+       /* while (RIGHT_BUTTON.resolveFor(actor).isPresent()) {
+            List<Integer> pricesOfHotels = new ArrayList<>();
+            pricesOfHotels=actor.asksFor(DxHotelQuestions.thePricesOfHotels());
+            PRICE_OF_HOTEL.resolveAllFor(actor).forEach(price -> pricesOfHotels.add(Integer.valueOf(price.getText().replace("$", ""))));
+            cheapestPriceFromEachPage.add(Collections.min(pricesOfHotels));
+            RIGHT_BUTTON.resolveFor(actor).click();
+        }*/
+        cheapestPriceFromEachPage = actor.asksFor(thePricesOfHotels());
         List<WebElementFacade> pricesElement = BrowseTheWeb.as(actor).findAll(By.xpath(ResultsHotels.PRICES_OF_HOTELS));
         actor.asksFor(findCheapestHotel(pricesElement));
-        precioMasBajoDeCadaPagina.add(actor.recall("value_per_day"));
-        System.out.println("*****PRECIO MAS BAJO DE CADA PAGINA***************");
-        precioMasBajoDeCadaPagina.forEach(System.out::println);
-        System.out.println("****** PRECIO MAS BAJO EN TODAS LAS PAGINAS*********");
-        Integer hotelDePrecioMasBajo = Collections.min(precioMasBajoDeCadaPagina);
+        cheapestPriceFromEachPage.add(actor.recall("value_per_day"));
+        cheapestPriceFromEachPage.forEach(System.out::println);
+        Integer hotelDePrecioMasBajo = Collections.min(cheapestPriceFromEachPage);
         actor.remember("cheapestHotel", hotelDePrecioMasBajo);
-        System.out.println(hotelDePrecioMasBajo);
-        System.out.println("*********EL HOTEL CON EL PRECIO MAS BAJO SE ENCUENTRA EN LA PAGINA***************");
-        System.out.print(precioMasBajoDeCadaPagina.indexOf(hotelDePrecioMasBajo));
-//  actor.attemptsTo(Click.on(CHEAPEST_HOTEL.of(String.valueOf(hotel))));
-//        long days = actor.asksFor(findDaysBetweenCheckInAndCheckOut(bookingHotel));
-//        days += 1;
-//        Integer valueOfNightInHotel = actor.recall("value_per_day");
-//        String totalToPay = String.valueOf(days * valueOfNightInHotel);
-//        actor.should(seeThat(totalToPay(), is(equalTo(totalToPay))));
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.qvision.challenge.questions;
 
+import com.qvision.challenge.interactions.FindPriceOfHotels;
 import com.qvision.challenge.models.BookingHotel;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.Question;
@@ -20,5 +21,9 @@ public class DxHotelQuestions {
     }
     public static Question<String> totalToPay(){
         return new TotalToPay();
+    }
+
+    public static Question<List<Integer>> thePricesOfHotels() {
+        return new FindPriceOfHotels();
     }
 }
