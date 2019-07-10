@@ -9,6 +9,8 @@ import net.serenitybdd.screenplay.actions.Enter;
 import static com.qvision.challenge.userinterface.HotelSearch.*;
 
 public class AdministradorTask {
+    private AdministradorTask() {
+    }
 
     public static Task bookNewHotel(BookingHotel bookingHotel) {
         return Task.where("{0} book a new hotel", Click.on(LOCATION_LIST), Click.on(CHOOSE_LOCATION.of(bookingHotel.getLocation())),

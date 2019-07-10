@@ -5,6 +5,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.By;
 
 import java.util.Collections;
@@ -18,6 +19,7 @@ public class FindCheapestHotel implements Task {
     protected FindCheapestHotel() {
     }
 
+    @Step("{0} find cheapest hotel")
     @Override
     public <T extends Actor> void performAs(T actor) {
         List<Integer> cheapestPriceFromEachPage;

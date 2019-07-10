@@ -11,7 +11,7 @@ import static com.qvision.challenge.userinterface.ResultsHotels.PRICE_OF_HOTEL;
 import static com.qvision.challenge.userinterface.ResultsHotels.RIGHT_BUTTON;
 
 public class FindPriceOfHotels implements Question<List<Integer>> {
-    private final int SHORT_TIME_TO_GET_TEXT = 500;
+    private final int SHORT_TIME_TO_GET_TEXT = 2000;
 
 
     @Override

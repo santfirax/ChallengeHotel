@@ -18,11 +18,16 @@ public class DxHotelQuestions {
     public static Question<Long> findDaysBetweenCheckInAndCheckOut(BookingHotel bookingHotel) {
         return new FindDaysBetweenCheckInAndCheckOut(bookingHotel);
     }
-    public static Question<String> totalToPay(){
+
+    public static Question<String> totalToPay() {
         return new TotalToPay();
     }
 
     public static Question<List<Integer>> thePricesOfHotels() {
         return new FindPriceOfHotels();
+    }
+
+    public static Question<Boolean> totalOfReservation(BookingHotel bookingHotel) {
+        return new TotalOfReservation(bookingHotel);
     }
 }
