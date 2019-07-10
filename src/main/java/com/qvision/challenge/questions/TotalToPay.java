@@ -6,6 +6,9 @@ import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.questions.Text;
 
 public class TotalToPay implements Question<String> {
+    protected TotalToPay() {
+    }
+
     @Override
     public String answeredBy(Actor actor) {
         return Text.of(ResultsHotels.TOTAL_TO_PAY).viewedBy(actor).asString().replace("$", "").replace(".00", "");

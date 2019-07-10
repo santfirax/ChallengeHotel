@@ -9,6 +9,9 @@ import net.thucydides.core.annotations.Step;
 import static com.qvision.challenge.userinterface.ResultsHotels.CHEAPEST_HOTEL;
 
 public class ChooseCheapestHotel implements Task {
+    protected ChooseCheapestHotel() {
+    }
+
     @Step("{0} choose cheapest Hotel")
     @Override
     public <T extends Actor> void performAs(T actor) {

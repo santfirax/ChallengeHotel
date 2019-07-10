@@ -7,6 +7,9 @@ import net.serenitybdd.screenplay.Question;
 import java.util.List;
 
 public class DxHotelQuestions {
+    private DxHotelQuestions() {
+    }
+
     public static Question<String> theDxHotelLogo() {
         return new SeeDxHotelLogo();
     }

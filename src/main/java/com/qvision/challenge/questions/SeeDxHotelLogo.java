@@ -10,7 +10,6 @@ public class SeeDxHotelLogo implements Question<String> {
 
     @Override
     public String answeredBy(Actor actor) {
-
         return BrowseTheWeb.as(actor).getTitle();
     }
 }
