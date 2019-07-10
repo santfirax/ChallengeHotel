@@ -11,7 +11,7 @@ import net.serenitybdd.screenplay.actions.Open;
 import java.util.List;
 
 import static com.qvision.challenge.questions.DxHotelQuestions.theDxHotelLogo;
-import static com.qvision.challenge.tasks.AdministradorTask.chooseCheapeasteHotel;
+import static com.qvision.challenge.tasks.AdministradorTask.findCheapeasteHotel;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
@@ -28,12 +28,19 @@ public class BookHotelStepDefinitions {
     @When("^I verify the fees of the client with reservation$")
     public void iVerifyTheFeesOfTheClientWithReservation(List<BookingHotel> reservations) {
         theActorInTheSpotlight().attemptsTo(AdministradorTask.bookNewHotel(reservations.get(0)),
-                chooseCheapeasteHotel(reservations.get(0)));
+                findCheapeasteHotel(reservations.get(0)));
     }
 
 
     @And("^I choose cheapste hotel$")
     public void iChooseCheapsteHotel() {
+        theActorInTheSpotlight().attemptsTo(AdministradorTask.chooseCheapestHotel());
 
+
+    }
+
+    @And("^I choose cheapest hotel$")
+    public void iChooseCheapestHotel() {
+        theActorInTheSpotlight().attemptsTo();
     }
 }
